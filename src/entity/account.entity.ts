@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, CreateDateColumn, JoinColumn } from 'typeorm';
 import { Author } from './author.entity'
-import * as moment from 'moment'
 
 @Entity()
 export class Account {
@@ -8,16 +7,10 @@ export class Account {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        type:'timestamp',
-        default:moment.now()
-    })
+    @CreateDateColumn()
     createTime:number;
 
-    @UpdateDateColumn({
-        type:'timestamp',
-        default:moment.now()
-    })
+    @UpdateDateColumn()
     updateTime:number;
 
     @Column({ length: 50 })
@@ -27,7 +20,6 @@ export class Account {
     password: string;
 
     @OneToOne(type=>Author,Author=>Author.account)
+    @JoinColumn()
     author:Author
-
-
 }

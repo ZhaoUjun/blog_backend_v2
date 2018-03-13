@@ -1,24 +1,28 @@
-import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToMany,ManyToOne, JoinColumn } from 'typeorm';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+    CreateDateColumn,
+    OneToMany,
+    ManyToMany,
+    ManyToOne,
+    JoinColumn,
+    JoinTable
+} from 'typeorm';
 import { Author } from './author.entity'
 import { Comment } from './comment.entity'
-import * as moment from 'moment'
-import {Tag} from "./tag.entity";
+import { Tag } from "./tag.entity";
 
 @Entity()
 export class Article {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        type:'timestamp',
-        default:moment.now()
-    })
+    @CreateDateColumn()
     createTime:number;
 
-    @UpdateDateColumn({
-        type:'timestamp',
-        default:moment.now()
-    })
+    @UpdateDateColumn()
     updateTime:number;
 
     @Column({ length: 50 })
@@ -45,8 +49,9 @@ export class Article {
         cascadeInsert: true,
         cascadeUpdate: true,
     })
+    @JoinColumn({name:'tag_ids'})
     tags: Tag[] = [];
 
     @OneToMany(type => Comment,comment => comment.article)
-    comments: number;
+    comments: Comment[]=[];
 }

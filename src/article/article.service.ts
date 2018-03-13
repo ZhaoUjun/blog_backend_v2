@@ -11,6 +11,10 @@ export class ArticleService {
     ) {}
 
     async findAll(): Promise<Article[]> {
-        return await this.ArticleRepository.find();
+        return await this.ArticleRepository
+                .createQueryBuilder('article')
+                .innerJoinAndSelect('article.author','author')
+                .leftJoinAndSelect('article.tags','tags')
+                .getMany()
     }
 }

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn } from 'typeorm';
 import { Article } from './article.entity'
 import * as moment from 'moment'
 
@@ -7,10 +7,7 @@ export class Comment {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        type:'timestamp',
-        default:moment.now()
-    })
+    @CreateDateColumn()
     createTime:number;
 
     @Column({ length: 50 })

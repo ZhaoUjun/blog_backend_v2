@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, OneToMany} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, OneToMany,CreateDateColumn} from 'typeorm';
 import { Account } from './account.entity'
 import { Article } from './article.entity'
 import * as moment from 'moment'
@@ -9,16 +9,10 @@ export class Author {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        type:'timestamp',
-        default:moment.now()
-    })
+    @CreateDateColumn()
     createTime:number;
 
-    @UpdateDateColumn({
-        type:'timestamp',
-        default:moment.now()
-    })
+    @UpdateDateColumn()
     updateTime:number;
 
     @Column({ length: 50 })

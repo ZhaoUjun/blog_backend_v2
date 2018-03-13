@@ -3,7 +3,7 @@
   "host": "localhost",
   "port": 3306,
   "username": "root",
-  "password": "275431605",
+  "password": "123456",
   "database": "test",
   "entities": ["src/entity/**.entity{.ts,.js}"],
   "synchronize": true
