@@ -13,12 +13,18 @@ export class ArticleService {
         private readonly ArticleRepository: Repository<Article>,
     ) {}
 
-    async findAll(): Promise<Article[]> {
-        return await this.ArticleRepository
+    async findAll(tagId?:number): Promise<Article[]> {
+        const ql=await this.ArticleRepository
                 .createQueryBuilder('article')
-                .innerJoinAndSelect('article.author','author')
-                .leftJoinAndSelect('article.tags','tags')
+                .innerJoinAndSelect('article.author','author');
+        if (!tagId){
+            return  ql.leftJoinAndSelect('article.tags','tags').getMany()
+        }
+        else {
+            return ql.innerJoinAndSelect('article.tags','tag')
+                .where('tag.id = :tagId',{tagId})
                 .getMany()
+        }
     }
 
     async createArticle(createArticleDto: CreateArticleDto): Promise<Article> {
