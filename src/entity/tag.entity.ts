@@ -7,9 +7,12 @@ export class Tag {
     id: number;
 
     @CreateDateColumn()
-    createTime:number;
+    createTime:Date;
 
-    @Column({ length: 50 })
+    @Column({
+        length: 50,
+        unique:true
+    })
     name: string;
 
     @ManyToMany(type => Article, article => article.tags, {

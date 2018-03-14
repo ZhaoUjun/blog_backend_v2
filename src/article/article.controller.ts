@@ -1,20 +1,23 @@
 import { Body, Controller, Get, HttpStatus, Res, Post} from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { Article } from '../entity/article.entity';
-import { CreatePhotoDto } from "../dto/create-photo.dto";
+import { CreateArticleDto } from "../dto/create-article.dto";
+import { ResponseVo } from '../utils/Response'
 
 @Controller('article')
 export class ArticleController {
     constructor(private readonly articleService: ArticleService) {}
 
     @Get()
-    findAll(): Promise<Article[]> {
-        return this.articleService.findAll();
+    async findAll(): Promise<ResponseVo> {
+        const data = await this.articleService.findAll();
+        const responseVo= new ResponseVo();
+        responseVo.data=data;
+        return responseVo
     }
 
     @Post()
-    create(@Res() res, @Body() createPhotoDto: CreatePhotoDto) {
-        // TODO: Add some logic here
-        res.status(HttpStatus.CREATED).send();
+    async create(@Body() createArticleDto: CreateArticleDto):Promise<ResponseVo> {
+        await this.articleService.createArticle(createArticleDto);
+        return new ResponseVo();
     }
 }

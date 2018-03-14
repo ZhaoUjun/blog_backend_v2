@@ -8,10 +8,10 @@ export class Account {
     id: number;
 
     @CreateDateColumn()
-    createTime:number;
+    createTime:Date;
 
     @UpdateDateColumn()
-    updateTime:number;
+    updateTime:Date;
 
     @Column({ length: 50 })
     account: string;

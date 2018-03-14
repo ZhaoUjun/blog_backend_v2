@@ -8,7 +8,7 @@ import {
     ManyToMany,
     ManyToOne,
     JoinColumn,
-    JoinTable
+    AfterLoad
 } from 'typeorm';
 import { Author } from './author.entity'
 import { Comment } from './comment.entity'
@@ -20,10 +20,10 @@ export class Article {
     id: number;
 
     @CreateDateColumn()
-    createTime:number;
+    createTime:Date;
 
     @UpdateDateColumn()
-    updateTime:number;
+    updateTime:Date;
 
     @Column({ length: 50 })
     title: string;
@@ -34,12 +34,16 @@ export class Article {
     content: string;
 
     @Column('text')
-    preview: number;
+    preview: string;
 
-    @Column()
+    @Column({
+        default:0
+    })
     status: number;
 
-    @Column()
+    @Column({
+        default:0
+    })
     readCnt: number;
 
     @ManyToOne(type=>Author,author=>author.articles)
@@ -54,4 +58,9 @@ export class Article {
 
     @OneToMany(type => Comment,comment => comment.article)
     comments: Comment[]=[];
+
+    @AfterLoad()
+    updateCounters() {
+        this.readCnt++;
+    }
 }

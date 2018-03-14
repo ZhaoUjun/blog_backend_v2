@@ -8,7 +8,7 @@ export class Comment {
     id: number;
 
     @CreateDateColumn()
-    createTime:number;
+    createTime:Date;
 
     @Column({ length: 50 })
     name: string;

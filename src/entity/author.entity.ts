@@ -10,10 +10,10 @@ export class Author {
     id: number;
 
     @CreateDateColumn()
-    createTime:number;
+    createTime:Date;
 
     @UpdateDateColumn()
-    updateTime:number;
+    updateTime:Date;
 
     @Column({ length: 50 })
     name: string;
