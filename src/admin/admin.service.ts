@@ -1,15 +1,19 @@
 import { Component, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository,getRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Account } from '../entity/account.entity';
-import { Tag } from '../entity/tag.entity';
 import { CreateAccountDto } from '../dto/create-account.dto'
 
 @Component()
-export class AccountsService {
+export class AdminService {
     constructor(
+
         @InjectRepository(Account)
         private readonly AccountRepository: Repository<Account>,
+
+        @Inject('RedisProvider')
+        private redisProvider,
+
     ) {}
 
     async findOne(accountVo:CreateAccountDto){
@@ -25,5 +29,9 @@ export class AccountsService {
         account.account=createAccountDto.account;
         account.password=createAccountDto.password;
         return this.AccountRepository.save(account)
+    }
+
+    async checkCaptcha(captcha:string):Promise<Boolean>{
+        return this.redisProvider.existsAsync(captcha)
     }
 }

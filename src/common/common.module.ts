@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { RedisService } from './redis.service'
 import { CommonService } from './common.service'
 
 @Module({
     imports: [],
-    components: [RedisService,CommonService],
-    exports:[RedisService,CommonService]
+    components: [
+        CommonService,
+    ],
+    exports:[CommonService]
 })
 export class CommonModule {}

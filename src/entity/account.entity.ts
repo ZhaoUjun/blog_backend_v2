@@ -13,7 +13,10 @@ export class Account {
     @UpdateDateColumn()
     updateTime:Date;
 
-    @Column({ length: 50 })
+    @Column({
+        length: 50,
+        unique:true,
+    })
     account: string;
 
     @Column({ length: 50 })
