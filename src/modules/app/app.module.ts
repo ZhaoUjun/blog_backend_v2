@@ -1,12 +1,12 @@
 import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
-import { SessionMiddleware } from './middlewares/session.middleware'
-import { LoggerMiddleware } from './middlewares/logger.middleware'
-import { ArticleModule } from './article/article.module';
-import { AdminModule } from './admin/admin.module'
+import { SessionMiddleware } from '../../middlewares/session.middleware'
+import { LoggerMiddleware } from '../../middlewares/logger.middleware'
+import { ArticleModule } from '../article/article.module';
+import { AdminModule } from '../admin/admin.module'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller'
-import { CommonModule } from './common/common.module'
-import { ShareModule } from './share/share.module'
+import { CommonModule } from '../common/common.module'
+import { ShareModule } from '../share/share.module'
 // import { RedisProvider } from './providers/redis.provider'
 
 

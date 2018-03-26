@@ -1,5 +1,5 @@
 import {Component, Inject,} from '@nestjs/common';
-import { REDIS_SCHEMA } from '../constant'
+import { REDIS_SCHEMA } from '../../constant'
 import * as captcha from 'captchapng'
 
 const CAPTCHA_SIZE={

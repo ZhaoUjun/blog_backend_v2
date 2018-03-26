@@ -1,8 +1,8 @@
 import { Component, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Account } from '../entity/account.entity';
-import { CreateAccountDto } from '../dto/create-account.dto'
+import { Account } from '../../entity/account.entity';
+import { CreateAccountDto } from '../../dto/create-account.dto'
 
 @Component()
 export class AdminService {

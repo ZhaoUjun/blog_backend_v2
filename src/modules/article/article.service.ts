@@ -1,10 +1,10 @@
 import { Component, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository,getRepository } from 'typeorm';
-import { Article } from '../entity/article.entity';
-import { Tag } from '../entity/tag.entity';
-import { Author } from '../entity/author.entity';
-import { CreateArticleDto } from '../dto/create-article.dto'
+import { Article } from '../../entity/article.entity';
+import { Tag } from '../../entity/tag.entity';
+import { Author } from '../../entity/author.entity';
+import { CreateArticleDto } from '../../dto/create-article.dto'
 
 @Component()
 export class ArticleService {
