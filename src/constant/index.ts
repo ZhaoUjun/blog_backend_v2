@@ -1,5 +1,6 @@
 export const REDIS_SCHEMA={
-    CAPTCHA:'CAPTCHA'
+    CAPTCHA:'CAPTCHA',
+    JWT_TOKEN:'JWT_TOKEN'
 };
 
 export const HTTP_ERROR_STATUS={

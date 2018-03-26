@@ -1,6 +1,7 @@
 import { Get, Controller, Response} from '@nestjs/common';
 import captcha from 'captchapng'
 import { CommonService } from '../common/common.service'
+import { NoNeedLogin } from '../../decorators/no-need-login'
 
 @Controller()
 export class AppController {
@@ -9,6 +10,7 @@ export class AppController {
         private commonService:CommonService,
 ){}
 
+    @NoNeedLogin()
     @Get('captcha')
     async getCaptcha(@Response() res){
         const code=parseInt(Math.random()*9000+'1000');
