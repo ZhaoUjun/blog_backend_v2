@@ -8,8 +8,8 @@ export class ArticleController {
     constructor(private readonly articleService: ArticleService) {}
 
     @Get()
-    async findAll(@Query('tagId') tagId?:number): Promise<ResponseDto<CreateArticleDto>> {
-        const data = await this.articleService.findAll(tagId);
+    async findAll(@Query('tagId') tagId?:number,@Query('pageNo') pageNo?:number): Promise<ResponseDto<CreateArticleDto>> {
+        const data = await this.articleService.findAll(tagId,pageNo);
         const responseVo= new ResponseDto();
         responseVo.data=data;
         return responseVo

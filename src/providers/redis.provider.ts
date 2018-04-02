@@ -3,7 +3,7 @@ import * as bluebird from 'bluebird';
 
 
 
-const client = redis.createClient({
+export const client = redis.createClient({
     host:"localhost",
     port:"6379"
 });

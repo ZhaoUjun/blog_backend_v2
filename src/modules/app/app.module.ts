@@ -1,6 +1,7 @@
 import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
 import { SessionMiddleware } from '../../middlewares/session.middleware'
 import { LoggerMiddleware } from '../../middlewares/logger.middleware'
+import { CorsMiddleware } from '../../middlewares/cors.middleware'
 import { ArticleModule } from '../article/article.module';
 import { AdminModule } from '../admin/admin.module'
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -26,8 +27,11 @@ import { ShareModule } from '../share/share.module'
 })
 export class ApplicationModule implements NestModule {
     configure(consumer: MiddlewaresConsumer): void {
-        consumer.apply([LoggerMiddleware,SessionMiddleware]).forRoutes(
-            { path: '/', method: RequestMethod.ALL },
+        consumer.apply([LoggerMiddleware,SessionMiddleware,CorsMiddleware]).forRoutes(
+            { path: '/*', method: RequestMethod.ALL },
         );
+        // consumer.apply([CorsMiddleware]).forRoutes(
+        //     { AppController },
+        // );
     }
 }

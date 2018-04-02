@@ -5,6 +5,7 @@ import { Article } from '../../entity/article.entity';
 import { Tag } from '../../entity/tag.entity';
 import { Author } from '../../entity/author.entity';
 import { CreateArticleDto } from '../../dto/create-article.dto'
+import { withPagination } from '../../utils'
 
 @Component()
 export class ArticleService {
@@ -13,18 +14,17 @@ export class ArticleService {
         private readonly ArticleRepository: Repository<Article>,
     ) {}
 
-    async findAll(tagId?:number): Promise<Article[]> {
+    async findAll(tagId?:number,page?:number,pageSize?:number): Promise<Article[]> {
         const ql=await this.ArticleRepository
                 .createQueryBuilder('article')
                 .innerJoinAndSelect('article.author','author');
         if (!tagId){
-            return  ql.leftJoinAndSelect('article.tags','tags').getMany()
+            return  withPagination(ql.leftJoinAndSelect('article.tags','tags'),page)
         }
-        else {
-            return ql.innerJoinAndSelect('article.tags','tag')
-                .where('tag.id = :tagId',{tagId})
-                .getMany()
-        }
+        return withPagination(
+            ql.innerJoinAndSelect('article.tags','tag').where('tag.id = :tagId',{tagId}),
+            page
+        )
     }
 
     async createArticle(createArticleDto: CreateArticleDto): Promise<Article> {
