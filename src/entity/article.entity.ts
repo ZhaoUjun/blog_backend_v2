@@ -13,6 +13,8 @@ import {
 import { Author } from './author.entity'
 import { Comment } from './comment.entity'
 import { Tag } from "./tag.entity";
+import { client } from '../providers/redis.provider'
+import { REDIS_SCHEMA } from '../constant'
 
 @Entity()
 export class Article {
@@ -60,7 +62,7 @@ export class Article {
     comments: Comment[]=[];
 
     @AfterLoad()
-    updateCounters() {
-        this.readCnt++;
+    async updateCounters() {
+        this.readCnt=await client.incrAsync(REDIS_SCHEMA+':'+this.id)
     }
 }
