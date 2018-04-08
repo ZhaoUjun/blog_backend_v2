@@ -4,8 +4,8 @@ import * as bluebird from 'bluebird';
 
 
 export const client = redis.createClient({
-    host:"localhost",
-    port:"6379"
+    host:"redis",
+    port:"6379",
 });
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
