@@ -5,8 +5,8 @@ import { ArticleController } from './article.controller';
 import { Article } from '../../entity/article.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Article])],
-    components: [ArticleService],
-    controllers: [ArticleController],
+	imports: [TypeOrmModule.forFeature([Article])],
+	providers: [ArticleService],
+	controllers: [ArticleController],
 })
 export class ArticleModule {}

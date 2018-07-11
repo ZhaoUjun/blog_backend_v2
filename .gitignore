@@ -21,4 +21,4 @@ npm-debug.log
 /dist
 
 #ormconfig
-/ormconfig.json
+ormconfig.json

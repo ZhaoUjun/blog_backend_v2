@@ -1,17 +1,25 @@
-import {Guard, CanActivate, ExecutionContext, Inject} from '@nestjs/common';
+import {
+	Injectable,
+	CanActivate,
+	ExecutionContext,
+	Inject,
+} from '@nestjs/common';
 import 'reflect-metadata';
-import { REDIS_SCHEMA } from '../constant/index'
+import { REDIS_SCHEMA } from '../constant/index';
 
-@Guard()
+@Injectable()
 export class AuthGuard implements CanActivate {
+	constructor(@Inject('RedisProvider') private redisProvider) {}
 
-    constructor( @Inject('RedisProvider') private redisProvider){}
-
-    async canActivate(req, context: ExecutionContext):Promise<boolean>{
-        if(Reflect.hasMetadata('NoNeedLogin',context.parent)||Reflect.hasMetadata('NoNeedLogin',context.handler)){
-            return true
-        }
-        const {account}=req.header;
-        return await this.redisProvider.get(REDIS_SCHEMA.JWT_TOKEN+':'+account)
-    }
+	async canActivate(context: ExecutionContext): Promise<boolean> {
+		const request = context.switchToHttp().getRequest();
+		if (
+			Reflect.hasMetadata('NoNeedLogin', context.getClass()) ||
+			Reflect.hasMetadata('NoNeedLogin', context.getHandler())
+		) {
+			return true;
+		}
+		const { account } = request.header;
+		return await this.redisProvider.get(REDIS_SCHEMA.JWT_TOKEN + ':' + account);
+	}
 }

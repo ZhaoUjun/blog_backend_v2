@@ -5,11 +5,18 @@ import { AnyExceptionFilter } from './filters/any-exception.filter';
 import { AuthGuard } from './guard/auth.guard';
 import { client } from './providers/redis.provider';
 
+declare const module: any;
+
 async function bootstrap() {
 	const app = await NestFactory.create(ApplicationModule);
 	app.useGlobalFilters(new HttpExceptionFilter());
 	app.useGlobalFilters(new AnyExceptionFilter());
 	app.useGlobalGuards(new AuthGuard(client));
 	await app.listen(3080);
+
+	if (module.hot) {
+		module.hot.accept();
+		module.hot.dispose(() => app.close());
+	}
 }
 bootstrap();
