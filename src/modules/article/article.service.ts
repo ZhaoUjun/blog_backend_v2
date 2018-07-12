@@ -30,7 +30,7 @@ export class ArticleService {
 			'article',
 		).innerJoinAndSelect('article.author', 'author');
 		if (!tagId) {
-			return withPagination(ql.leftJoinAndSelect('article.tags', 'tags'), page);
+			return withPagination(ql.leftJoinAndSelect('article.tags', 'tags').orderBy('article.id','DESC'), page);
 		}
 		return withPagination(
 			ql
