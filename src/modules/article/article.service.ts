@@ -53,7 +53,8 @@ export class ArticleService {
 		article.author = await authorRepository.findOne(createArticleDto.authorId);
 		article.title = createArticleDto.title;
 		article.content = createArticleDto.content;
-		article.preview = createArticleDto.content.slice(0, 140);
+		const {index}=/\<\/br\>/.exec(article.content);
+		article.preview = createArticleDto.content.slice(0, index);
 		return await this.ArticleRepository.save(article);
 	}
 
